@@ -1,0 +1,34 @@
+[
+    {
+        "name":"rohit",
+        "email":"rohitrai6263@gmail.com",
+        "mobile":6263442889,
+        "age":20
+    },
+    
+    {
+        "name":"rohit",
+        "email":"rohitrai6263@gmail.com",
+        "mobile":6263442889,
+        "age":21
+    },
+    {
+        "name":"devendra",
+        "email":"rohitrai6263@gmail.com",
+        "mobile":6263442889,
+        "age":22
+    },
+    {
+        "name":"Sourabh",
+        "email":"rohitrai6263@gmail.com",
+        "mobile":6263442889,
+        "age":23
+    },
+    {
+        "name":"Sachin",
+        "email":"rohitrai6263@gmail.com",
+        "mobile":6263442889,
+        "age":24
+    }
+
+]
