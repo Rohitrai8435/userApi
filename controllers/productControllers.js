@@ -23,11 +23,11 @@ const deletesingleproduct = async (req, res, next) => {
 };
 const singleproductpopulate = async (req, res, next) => {
   const product = await productModel.findById(req.params.id).populate({
-    path: 'users',
+    path: "users",
     populate: {
-      path: 'outlets',
-      model: 'Outlet' // The name of the Outlet model
-    }
+      path: "outlets",
+      model: "Outlet", // The name of the Outlet model
+    },
   });
   res.json({ product });
 };

@@ -10,12 +10,12 @@ const outletSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  companies:[ 
+  companies: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Company", // Reference to the Company model
-    }
-],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company", // Reference to the Company model
+    },
+  ],
 });
 
 // Create a model using the schema

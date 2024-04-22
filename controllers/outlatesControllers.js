@@ -32,12 +32,12 @@ const updateoutlate = async (req, res, next) => {
     message: "outlate updated successfully",
   });
 };
-const singleoutlatepopulate=async(req,res,next)=>{
+const singleoutlatepopulate = async (req, res, next) => {
   const outlate = await outlateModel
     .findById(req.params.id)
     .populate("companies");
-    res.send(outlate);
-}
+  res.send(outlate);
+};
 
 module.exports = {
   alloutlates,

@@ -8,38 +8,43 @@ const alluser = async (req, res, next) => {
   res.json(users);
 };
 const adduser = async (req, res, next) => {
-   const { username, email, password, type,outlets } = req.body;
-   const user = await userModel.findOne({ email });
-   if (!user) {
-     const hashpassword = await bcrypt.hash(password, 10);
-     const createduser = await userModel.create({
-       username,
-       email,
-       password: hashpassword,
-       type,
-       outlets
-     });
-     await createduser.save();
-     return res.json({ status: true, message: "user registed succesfully",createduser });
-   }
-   return res.json({ message: "user already existe" });
+  const { username, email, password, type } = req.body;
+  console.log(req.body);
+  const user = await userModel.findOne({ email });
+  if (!user) {
+    const hashpassword = await bcrypt.hash(password, 10);
+    const createduser = await userModel.create({
+      username,
+      email,
+      password: hashpassword,
+      type,
+      outlets,
+    });
+    await createduser.save();
+    return res.json({
+      status: true,
+      message: "user registed succesfully",
+      createduser,
+    });
+  }
+  return res.json({ message: "user already existe" });
 };
 const deletesingleuser = async (req, res, next) => {
   const user = await userModel.findOneAndDelete(req.params.id);
   res.send({
-    message:"user deleted successfully",
-    user
-  })
+    message: "user deleted successfully",
+    user,
+  });
 };
 const updateuser = async (req, res, next) => {
   const userdata = req.body;
   const user = await userModel.findByIdAndUpdate(req.params.id, userdata);
-   res.send({
-    message:'user updated successfully',
-   })
+  res.send({
+    message: "user updated successfully",
+  });
 };
-const loginuser =async(req,res,next)=>{
-  const { email, password} = req.body;
+const loginuser = async (req, res, next) => {
+  const { email, password } = req.body;
   const createduser = await userModel.findOne({ email });
   if (!createduser) {
     return res.send({ message: "User Note exists" });
@@ -54,11 +59,11 @@ const loginuser =async(req,res,next)=>{
     { expiresIn: "1h" }
   );
   res.cookie("token", token, { httpOnly: true, maxAge: 3600000 });
-  return res.send({status: true, message: "login succesfully" });
-}
+  return res.send({ status: true, message: "login succesfully" });
+};
 const logoutuser = async (req, res, next) => {
-   res.clearCookie("token");
-   res.send({ status: true, message: "user logout succesfully" });
+  res.clearCookie("token");
+  res.send({ status: true, message: "user logout succesfully" });
 };
 const forgotPassword = async (req, res, next) => {
   const { email } = req.body;
@@ -97,21 +102,21 @@ const forgotPassword = async (req, res, next) => {
   }
 };
 const resetPassword = async (req, res, next) => {
-    const { token } = req.params;
-    const { password } = req.body;
-    try {
-      const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-      const id = decoded.id;
-      const hashpassword = await bcrypt.hash(password, 10);
-      const user = await userModel.findByIdAndUpdate(
-        { _id: id },
-        { password: hashpassword }
-      );
-      await user.save();
-      return res.send({ status: true, message: "password Reset Successfully" });
-    } catch (error) {
-      return res.send({ message: "Link Has Expired" });
-    }
+  const { token } = req.params;
+  const { password } = req.body;
+  try {
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    const id = decoded.id;
+    const hashpassword = await bcrypt.hash(password, 10);
+    const user = await userModel.findByIdAndUpdate(
+      { _id: id },
+      { password: hashpassword }
+    );
+    await user.save();
+    return res.send({ status: true, message: "password Reset Successfully" });
+  } catch (error) {
+    return res.send({ message: "Link Has Expired" });
+  }
 };
 
 module.exports = {

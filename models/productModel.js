@@ -14,14 +14,14 @@ const productSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company", // Reference to the Company model
-    }
-],
+    },
+  ],
   users: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User", // Reference to the User model
-    }
-],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Reference to the User model
+    },
+  ],
 });
 
 const Product = mongoose.model("Product", productSchema);
